@@ -23,6 +23,8 @@ export default {
 
   picker: {
     position: 'relative',
+    width: '0px',
+    height: '0px',
     top: '5px',
     zIndex: '1'
   },
