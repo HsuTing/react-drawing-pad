@@ -4,5 +4,10 @@ import color from 'color';
 
 export default {
   defaultColor: color.red,
-  defaultWidth: 1
+  defaultSize: 1,
+  items: [
+    'font',
+    'color',
+    'delete'
+  ]
 };

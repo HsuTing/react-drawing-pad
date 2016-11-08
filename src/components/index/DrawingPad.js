@@ -1,14 +1,27 @@
 'use strict';
 
 import React from 'react';
-
-import ControlBar from './ControlBar';
+import Radium from 'radium';
 
 import style from './style/drawingPad';
 
 import data from './static';
 
+@Radium
 export default class DrawingPad extends React.Component {
+  static propTypes = {
+    defaultColor: React.PropTypes.string,
+    defaultSize: React.PropTypes.number,
+    getCanvas: React.PropTypes.func,
+    container: React.PropTypes.object,
+    style: React.PropTypes.object,
+    children: React.PropTypes.node
+  }
+
+  static defaultProps = {
+    getCanvas: () => {}
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,29 +43,40 @@ export default class DrawingPad extends React.Component {
   }
 
   componentDidMount() {
+    const {getCanvas, defaultColor, defaultSize} = this.props;
     const ctx = this.node.getContext('2d');
+
     this.setSize();
+    getCanvas({ctx, canvas: this.node});
 
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
-    ctx.strokeStyle = data.defaultColor;
-    ctx.lineWidth = data.defaultWidth;
+    ctx.strokeStyle = defaultColor || data.defaultColor;
+    ctx.lineWidth = defaultSize || data.defaultWidth;
 
     this.setState({ctx});
   }
 
   render() {
     const {ctx} = this.state;
+    const {container, defaultColor, defaultSize, ...props} = this.props;
+
+    delete props.getCanvas;
 
     return (
       <div style={style.root}>
-        <ControlBar ctx={ctx}
-                    canvas={this.node || {}}
-        />
-        <div style={style.container}>
+        {React.Children.map(this.props.children, node => {
+          return React.cloneElement(node, {
+            ctx,
+            canvas: this.node,
+            defaultColor,
+            defaultSize
+          });
+        })}
+        <div style={[style.container, container]}>
           <canvas ref={this.getNode}
-                  style={style.pad}
-                  {...this.props}
+                  {...props}
+                  style={[style.pad, this.props.style]}
                   onMouseMove={this.paint}
                   onMouseDown={this.startPaint}
                   onMouseUp={this.stopPaint}
@@ -81,7 +105,6 @@ export default class DrawingPad extends React.Component {
     const {ctx} = this.state;
 
     ctx.closePath();
-    ctx.save();
     this.setState({isPainted: false});
   }
 

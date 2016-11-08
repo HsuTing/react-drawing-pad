@@ -11,45 +11,53 @@ import {item as itemStyle} from './style/controlBar';
 @radium
 export default class FontPicker extends React.Component {
   static propTypes = {
-    ctx: React.PropTypes.object.isRequired
+    ctx: React.PropTypes.object.isRequired,
+    defaultSize: React.PropTypes.number,
+    style: React.PropTypes.object
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      width: data.defaultWidth
+      size: this.props.defaultSize || data.defaultSize
     };
 
-    this.changeWidth = this.changeWidth.bind(this);
+    this.changeSize = this.changeSize.bind(this);
   }
 
   render() {
-    const {width} = this.state;
+    const {size} = this.state;
+    const props = {...this.props};
+
+    delete props.ctx;
+    delete props.defaultSize
 
     return (
-      <div style={[itemStyle, style.root]}>
+      <div {...props}
+           style={[itemStyle, style.root, this.props.style]}
+      >
         <div style={style.text}>SIZE：</div>
-        <input value={width}
+        <input value={size}
                style={style.input}
-               onChange={this.changeWidth}
-               onBlur={this.changeWidth}
+               onChange={this.changeSize}
+               onBlur={this.changeSize}
                maxLength={2}
         />
       </div>
     );
   }
 
-  changeWidth(e) {
+  changeSize(e) {
     const {ctx} = this.props;
-    let width = parseInt(e.target.value);
+    let size = parseInt(e.target.value);
 
-    if(isNaN(width))
-      width = '';
+    if(isNaN(size))
+      size = '';
 
-    if(e.type === 'blur' && width === '')
-      width = 1;
+    if(e.type === 'blur' && size === '')
+      size = 1;
 
-    ctx.lineWidth = width;
-    this.setState({width});
+    ctx.lineWidth = size;
+    this.setState({size});
   }
 }
