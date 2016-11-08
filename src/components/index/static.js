@@ -8,6 +8,8 @@ export default {
   items: [
     'font',
     'color',
-    'delete'
+    'delete',
+    'save',
+    'image'
   ]
 };

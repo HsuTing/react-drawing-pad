@@ -2,15 +2,15 @@
 
 import React from 'react';
 import radium from 'radium';
-import DeleteIcon from 'react-icons/lib/md/delete';
+import DownloadIcon from 'react-icons/lib/md/file-download';
+import {saveAs} from 'file-saver';
 
 import style from './style/icon';
 import {item as itemStyle} from './style/controlBar';
 
 @radium
-export default class Delete extends React.Component {
+export default class Save extends React.Component {
   static propTypes = {
-    ctx: React.PropTypes.object.isRequired,
     canvas: React.PropTypes.object.isRequired,
     style: React.PropTypes.object,
     icon: React.PropTypes.object
@@ -19,29 +19,30 @@ export default class Delete extends React.Component {
   constructor(props) {
     super(props);
 
-    this.clear = this.clear.bind(this);
+    this.save = this.save.bind(this);
   }
 
   render() {
     const props = {...this.props};
 
-    delete props.ctx;
     delete props.canvas;
-    delete props.icon;
 
     return (
       <div {...props}
             style={[itemStyle, this.props.style]}
       >
-        <DeleteIcon style={Object.assign(style, this.props.icon)}
-                    onClick={this.clear}
+        <DownloadIcon style={Object.assign(style, this.props.icon)}
+                      onClick={this.save}
         />
       </div>
     );
   }
 
-  clear() {
-    const {ctx, canvas} = this.props;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  save() {
+    const {canvas} = this.props;
+
+    canvas.toBlob(blob => {
+      saveAs(blob, 'image.png');
+    });
   }
 }

@@ -6,6 +6,8 @@ import radium from 'radium';
 import ColorPicker from './ColorPicker';
 import FontPicker from './FontPicker';
 import Delete from './Delete';
+import Save from './Save';
+import Image from './Image';
 
 import style from './style/controlBar';
 
@@ -61,6 +63,20 @@ export default class ControlBar extends React.Component {
                 <Delete ctx={ctx}
                         canvas={canvas}
                         key={index}
+                />
+              );
+
+            case 'save':
+              return (
+                <Save canvas={canvas}
+                      key={index}
+                />
+              );
+
+            case 'image':
+              return (
+                <Image canvas={canvas}
+                       key={index}
                 />
               );
 
