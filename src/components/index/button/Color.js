@@ -3,16 +3,14 @@
 import React from 'react';
 import radium from 'radium';
 import {ChromePicker} from 'react-color';
-
 import convertColor from 'utils/convertColor';
 
-import style from './style/colorPicker';
-import {item as itemStyle} from './style/controlBar';
+import style from './style/color';
 
-import data from './static.js';
+import {defaultColor} from './static.js';
 
 @radium
-export default class ColorPicker extends React.Component {
+export default class Color extends React.Component {
   static propTypes = {
     ctx: React.PropTypes.object.isRequired,
     style: React.PropTypes.object,
@@ -23,7 +21,7 @@ export default class ColorPicker extends React.Component {
     super(props);
     this.state = {
       isShow: false,
-      chooseColor: this.props.defaultColor || data.defaultColor
+      chooseColor: this.props.defaultColor || defaultColor
     };
 
     this.togglePicker = this.togglePicker.bind(this);
@@ -40,9 +38,7 @@ export default class ColorPicker extends React.Component {
     delete props.defaultColor;
 
     return (
-      <div {...props}
-           style={[itemStyle, this.props.style]}
-      >
+      <div {...props}>
         <div style={style.button}
              onClick={this.showPicker}
         >

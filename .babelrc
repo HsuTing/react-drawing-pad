@@ -16,7 +16,8 @@
         "components": "components",
         "componentsShare": "components/share",
         "componentsShareRadium": "components/share/radium",
-        "componentsIndex": "components/index"
+        "componentsIndex": "components/index",
+        "componentsIndexButton": "components/index/button"
       }
     }]
   ]

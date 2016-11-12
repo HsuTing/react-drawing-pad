@@ -1,10 +1,9 @@
 'use strict';
 
-export DrawingPad from 'componentsIndex/DrawingPad';
-export ControlBar from 'componentsIndex/ControlBar';
+export Pad from 'componentsIndex/Pad';
 
-export FontPicker from 'componentsIndex/FontPicker';
-export ColorPicker from 'componentsIndex/ColorPicker';
-export Delete from 'componentsIndex/Delete';
-export Save from 'componentsIndex/Save';
-export Image from 'componentsIndex/Image';
+export Font from 'componentsIndexButton/Font';
+export Color from 'componentsIndexButton/Color';
+export Delete from 'componentsIndexButton/Delete';
+export Save from 'componentsIndexButton/Save';
+export Image from 'componentsIndexButton/Image';

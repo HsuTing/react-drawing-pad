@@ -3,13 +3,12 @@
 import React from 'react';
 import radium from 'radium';
 
-import data from './static';
+import style from './style/font';
 
-import style from './style/fontPicker';
-import {item as itemStyle} from './style/controlBar';
+import {defaultSize} from './static';
 
 @radium
-export default class FontPicker extends React.Component {
+export default class Font extends React.Component {
   static propTypes = {
     ctx: React.PropTypes.object.isRequired,
     defaultSize: React.PropTypes.number,
@@ -19,7 +18,7 @@ export default class FontPicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: this.props.defaultSize || data.defaultSize
+      size: this.props.defaultSize || defaultSize
     };
 
     this.changeSize = this.changeSize.bind(this);
@@ -34,7 +33,7 @@ export default class FontPicker extends React.Component {
 
     return (
       <div {...props}
-           style={[itemStyle, style.root, this.props.style]}
+           style={[style.root, this.props.style]}
       >
         <div style={style.text}>SIZE：</div>
         <input value={size}
