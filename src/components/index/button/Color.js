@@ -3,16 +3,19 @@
 import React from 'react';
 import radium from 'radium';
 import {ChromePicker} from 'react-color';
-import convertColor from 'utils/convertColor';
 
-import style from './style/color';
+import itemStyle from './style/item';
+import colorStyle from './style/color';
 
 import {defaultColor} from './static.js';
 
 @radium
 export default class Color extends React.Component {
+  static contextTypes = {
+    canvas: React.PropTypes.object.isRequired
+  }
+
   static propTypes = {
-    ctx: React.PropTypes.object.isRequired,
     style: React.PropTypes.object,
     defaultColor: React.PropTypes.string
   }
@@ -28,25 +31,34 @@ export default class Color extends React.Component {
     this.showPicker = this.togglePicker(true).bind(this);
     this.hidePicker = this.togglePicker(false).bind(this);
     this.changeColor = this.changeColor.bind(this);
+    this.convertColor = this.convertColor.bind(this);
+  }
+
+  componentDidUpdate() {
+    const {ctx} = this.context.canvas;
+    const {chooseColor} = this.state;
+
+    ctx.strokeStyle = chooseColor;
   }
 
   render() {
     const {isShow, chooseColor} = this.state;
-    const props = {...this.props};
+    const {style, ...props} = this.props;
 
-    delete props.ctx;
     delete props.defaultColor;
 
     return (
-      <div {...props}>
-        <div style={style.button}
-             onClick={this.showPicker}
-        >
-          <div style={style.chooseColor(convertColor(chooseColor))} />
-        </div>
+      <div {...props}
+           style={[itemStyle, colorStyle.root, style]}
+      >
+        <div style={colorStyle.button}>
+          <div style={colorStyle.chooseColor(this.convertColor(chooseColor))}
+               onClick={this.showPicker}
+           />
+         </div>
         {isShow ?
-          <div style={style.picker}>
-            <div style={style.cover}
+          <div style={colorStyle.picker}>
+            <div style={colorStyle.cover}
                  onClick={this.hidePicker}
             ></div>
             <ChromePicker color={chooseColor}
@@ -65,9 +77,15 @@ export default class Color extends React.Component {
   }
 
   changeColor(color) {
-    const {ctx} = this.props;
+    const {ctx} = this.context.canvas;
 
-    ctx.strokeStyle = convertColor(color.rgb);
+    ctx.strokeStyle = this.convertColor(color.rgb);
     this.setState({chooseColor: color.rgb});
+  }
+
+  convertColor(color) {
+    if(color instanceof Object)
+      return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+    return color;
   }
 }

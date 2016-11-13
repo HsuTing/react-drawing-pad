@@ -3,9 +3,13 @@
 import color from 'color';
 
 export default {
+  root: {
+    width: '45px'
+  },
+
   button: {
-    width: '35px',
-    height: 'calc(100% - 5px * 2 - 1px * 2)',
+    width: 'calc(100% - 5px * 2)',
+    height: 'calc(100% - 5px * 2)',
     padding: '5px',
     border: `solid 1px ${color.grey}`,
     borderRadius: '5px',

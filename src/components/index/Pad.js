@@ -8,6 +8,10 @@ export default class Pad extends React.Component {
     canvas: React.PropTypes.object.isRequired
   }
 
+  static propTypes = {
+    defaultColor: React.PropTypes.string
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -47,8 +51,12 @@ export default class Pad extends React.Component {
   }
 
   render() {
+    const props = {...this.props};
+
+    delete props.defaultColor;
+
     return (
-      <div {...this.props}
+      <div {...props}
            ref={this.getNode}
       />
     );
@@ -60,12 +68,15 @@ export default class Pad extends React.Component {
 
   setDefaultSetting() {
     const {canvas, ctx} = this;
+    const {defaultColor} = this.props;
 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
+
+    ctx.strokeStyle = defaultColor || 'black';
   }
 
   addEventToCanvas() {
