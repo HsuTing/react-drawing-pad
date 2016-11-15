@@ -54,14 +54,14 @@ class Example extends React.Component {
 | props | usage |
 |-------|-------|
 | defaultSize | default width of line. |
+| inputStyle | style of input. |
+| iconStyle | style of icon. |
 
 #### Color
 
 | props | usage |
 |-------|-------|
 | defaultColor | default color of line. |
-| inputStyle | style of input. |
-| iconStyle | style of icon. |
 
 ## Develop
 
