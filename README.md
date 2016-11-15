@@ -60,12 +60,8 @@ class Example extends React.Component {
 | props | usage |
 |-------|-------|
 | defaultColor | default color of line. |
-
-#### Delete
-
-#### Save
-
-#### Image
+| inputStyle | style of input. |
+| iconStyle | style of icon. |
 
 ## Develop
 
