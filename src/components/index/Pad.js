@@ -5,7 +5,7 @@ import invariant from 'invariant';
 
 export default class Pad extends React.Component {
   static childContextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -24,6 +24,7 @@ export default class Pad extends React.Component {
     };
 
     this.getNode = this.getNode.bind(this);
+    this.getCanvas = this.getCanvas.bind(this);
     this.setDefaultSetting = this.setDefaultSetting.bind(this);
     this.addEventToCanvas = this.addEventToCanvas.bind(this);
     this.startPaint = this.startPaint.bind(this);
@@ -43,10 +44,7 @@ export default class Pad extends React.Component {
 
   getChildContext() {
     return {
-      canvas: {
-        canvas: this.canvas,
-        ctx: this.ctx
-      }
+      getCanvas: this.getCanvas
     };
   }
 
@@ -64,6 +62,13 @@ export default class Pad extends React.Component {
 
   getNode(node) {
     this.node = node;
+  }
+
+  getCanvas() {
+    return {
+      canvas: this.canvas,
+      ctx: this.ctx
+    };
   }
 
   setDefaultSetting() {

@@ -10,7 +10,7 @@ import itemStyle from './style/item';
 @radium
 export default class Image extends React.Component {
   static contextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -38,7 +38,7 @@ export default class Image extends React.Component {
   }
 
   save() {
-    const {canvas} = this.context.canvas;
+    const {canvas} = this.context.getCanvas();
     const dataURL = canvas.toDataURL('image/png');
     const newWindow = window.open();
     newWindow.document.write(`<img src="${dataURL}" />`);

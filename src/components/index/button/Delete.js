@@ -10,7 +10,7 @@ import itemStyle from './style/item';
 @radium
 export default class Delete extends React.Component {
   static contextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -38,7 +38,7 @@ export default class Delete extends React.Component {
   }
 
   clear() {
-    const {ctx, canvas} = this.context.canvas;
+    const {ctx, canvas} = this.context.getCanvas();
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }

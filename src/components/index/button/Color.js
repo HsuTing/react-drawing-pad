@@ -12,7 +12,7 @@ import {defaultColor} from './static.js';
 @radium
 export default class Color extends React.Component {
   static contextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -35,7 +35,7 @@ export default class Color extends React.Component {
   }
 
   componentDidUpdate() {
-    const {ctx} = this.context.canvas;
+    const {ctx} = this.context.getCanvas();
     const {chooseColor} = this.state;
 
     ctx.strokeStyle = chooseColor;
@@ -77,7 +77,7 @@ export default class Color extends React.Component {
   }
 
   changeColor(color) {
-    const {ctx} = this.context.canvas;
+    const {ctx} = this.context.getCanvas();
 
     ctx.strokeStyle = this.convertColor(color.rgb);
     this.setState({chooseColor: color.rgb});

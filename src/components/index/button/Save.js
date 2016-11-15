@@ -11,7 +11,7 @@ import itemStyle from './style/item';
 @radium
 export default class Save extends React.Component {
   static contextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -39,7 +39,7 @@ export default class Save extends React.Component {
   }
 
   save() {
-    const {canvas} = this.context.canvas;
+    const {canvas} = this.context.getCanvas();
 
     canvas.toBlob(blob => {
       saveAs(blob, 'image.png');

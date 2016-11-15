@@ -14,7 +14,7 @@ import {defaultSize} from './static';
 @radium
 export default class Font extends React.Component {
   static contextTypes = {
-    canvas: React.PropTypes.object.isRequired
+    getCanvas: React.PropTypes.func.isRequired
   }
 
   static propTypes = {
@@ -43,7 +43,7 @@ export default class Font extends React.Component {
   }
 
   componentDidUpdate() {
-    const {ctx} = this.context.canvas;
+    const {ctx} = this.context.getCanvas();
     const {size} = this.state;
 
     ctx.lineWidth = size;
@@ -72,7 +72,7 @@ export default class Font extends React.Component {
   }
 
   changeSize(e) {
-    const {ctx} = this.context.canvas;
+    const {ctx} = this.context.getCanvas();
     let size = parseInt(e.target.value);
 
     if(isNaN(size))
