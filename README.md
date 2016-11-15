@@ -5,8 +5,8 @@ This project uses [radium](https://github.com/FormidableLabs/radium) to make dra
 ## Getting Started
 
 ```
-yarn install react
-yarn install git+https://github.com/HsuTing/react-drawing-pad.git
+yarn add react
+yarn add git+https://github.com/HsuTing/react-drawing-pad.git
 ```
 
 ## Usage
