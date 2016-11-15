@@ -26,7 +26,7 @@ yarn install git+https://github.com/HsuTing/react-drawing-pad.git
 
 ```javascript
 import React from 'react';
-import {Pad, Color} from 'react-drawing-pad';
+import {Pad, Font as FontButton} from 'react-drawing-pad';
 
 class Example extends React.Component {
   render() {
