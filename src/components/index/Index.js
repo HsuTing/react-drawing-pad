@@ -3,6 +3,7 @@
 import React from 'react';
 import Style from 'componentsShare/Style';
 import Pad from './Pad';
+import FontButton from './button/Font';
 import ColorButton from './button/Color';
 import DeleteButton from './button/Delete';
 import SaveButton from './button/Save';
@@ -16,6 +17,7 @@ export default class Index extends React.Component {
         <Style />
         <Pad style={style.pad}>
           <div style={style.control}>
+            <FontButton />
             <ColorButton />
             <DeleteButton />
             <SaveButton />

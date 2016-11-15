@@ -4,6 +4,7 @@ import React from 'react';
 import radium from 'radium';
 import DownloadIcon from 'react-icons/lib/md/file-download';
 import {saveAs} from 'file-saver';
+import convertStyle from 'utils/convertStyle';
 
 import itemStyle from './style/item';
 
@@ -14,7 +15,10 @@ export default class Save extends React.Component {
   }
 
   static propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ])
   }
 
   constructor(props) {
@@ -28,7 +32,7 @@ export default class Save extends React.Component {
 
     return (
       <DownloadIcon {...props}
-                    style={Object.assign({}, itemStyle, style)}
+                    style={convertStyle([itemStyle, style])}
                     onClick={this.save}
       />
     );

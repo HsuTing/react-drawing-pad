@@ -3,6 +3,7 @@
 import React from 'react';
 import radium from 'radium';
 import ImageIcon from 'react-icons/lib/md/image';
+import convertStyle from 'utils/convertStyle';
 
 import itemStyle from './style/item';
 
@@ -13,7 +14,10 @@ export default class Image extends React.Component {
   }
 
   static propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ])
   }
 
   constructor(props) {
@@ -27,7 +31,7 @@ export default class Image extends React.Component {
 
     return (
       <ImageIcon {...props}
-                 style={Object.assign({}, itemStyle, style)}
+                 style={convertStyle([itemStyle, style])}
                  onClick={this.save}
       />
     );

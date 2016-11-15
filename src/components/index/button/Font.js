@@ -2,17 +2,35 @@
 
 import React from 'react';
 import radium from 'radium';
+import Add from 'react-icons/lib/md/add';
+import Remove from 'react-icons/lib/md/remove';
+import convertStyle from 'utils/convertStyle';
 
-import style from './style/font';
+import itemStyle from './style/item';
+import fontStyle from './style/font';
 
 import {defaultSize} from './static';
 
 @radium
 export default class Font extends React.Component {
+  static contextTypes = {
+    canvas: React.PropTypes.object.isRequired
+  }
+
   static propTypes = {
-    ctx: React.PropTypes.object.isRequired,
-    defaultSize: React.PropTypes.number,
-    style: React.PropTypes.object
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
+    inputStyle: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
+    iconStyle: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
+    defaultSize: React.PropTypes.number
   }
 
   constructor(props) {
@@ -24,30 +42,37 @@ export default class Font extends React.Component {
     this.changeSize = this.changeSize.bind(this);
   }
 
+  componentDidUpdate() {
+    const {ctx} = this.context.canvas;
+    const {size} = this.state;
+
+    ctx.lineWidth = size;
+  }
+
   render() {
     const {size} = this.state;
-    const props = {...this.props};
+    const {style, inputStyle, iconStyle,  ...props} =  this.props;
 
-    delete props.ctx;
     delete props.defaultSize
 
     return (
       <div {...props}
-           style={[style.root, this.props.style]}
+           style={[itemStyle, fontStyle.root, style]}
       >
-        <div style={style.text}>SIZE：</div>
+        <Remove style={convertStyle([fontStyle.icon, iconStyle])} />
         <input value={size}
-               style={style.input}
+               style={[fontStyle.input(style), inputStyle]}
                onChange={this.changeSize}
                onBlur={this.changeSize}
                maxLength={2}
         />
+        <Add style={convertStyle([fontStyle.icon, iconStyle])} />
       </div>
     );
   }
 
   changeSize(e) {
-    const {ctx} = this.props;
+    const {ctx} = this.context.canvas;
     let size = parseInt(e.target.value);
 
     if(isNaN(size))
