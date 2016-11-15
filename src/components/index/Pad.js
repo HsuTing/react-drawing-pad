@@ -9,7 +9,8 @@ export default class Pad extends React.Component {
   }
 
   static propTypes = {
-    defaultColor: React.PropTypes.string
+    defaultColor: React.PropTypes.string,
+    defaultSize: React.PropTypes.string
   }
 
   constructor(props) {
@@ -73,7 +74,7 @@ export default class Pad extends React.Component {
 
   setDefaultSetting() {
     const {canvas, ctx} = this;
-    const {defaultColor} = this.props;
+    const {defaultColor, defaultSize} = this.props;
 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -82,6 +83,7 @@ export default class Pad extends React.Component {
     ctx.lineCap = 'round';
 
     ctx.strokeStyle = defaultColor || 'black';
+    ctx.lineWidth = defaultSize || 1;
   }
 
   addEventToCanvas() {

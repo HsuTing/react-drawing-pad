@@ -1,16 +1,79 @@
 # React-drawing-pad
 
-react drawing pad
+This project uses [radium](https://github.com/FormidableLabs/radium) to make drawing pad.
 
 ## Getting Started
+
+```
+yarn install react
+yarn install git+https://github.com/HsuTing/react-drawing-pad.git
+```
+
+## Usage
+
+[demo](http://hsuting.com/react-drawing-pad/) and [code](./src/components/index/Index.js)
+
+#### Components
+
+- Pad
+- Font
+- Color
+- Delete
+- Save
+- Image
+
+#### Example
+
+```javascript
+import React from 'react';
+import {Pad, Color} from 'react-drawing-pad';
+
+class Example extends React.Component {
+  render() {
+    return (
+      <Pad>
+        <FontButton />
+        <canvas />
+      </Pad>
+    );
+  }
+}
+```
+
+#### Pad
+
+`canvas` and other components must be under `Pad` component.
+
+| props | usage |
+|-------|-------|
+| defaultColor | default color of line. |
+| defaultSize | default width of line. |
+
+#### Font
+
+| props | usage |
+|-------|-------|
+| defaultSize | default width of line. |
+
+#### Color
+
+| props | usage |
+|-------|-------|
+| defaultColor | default color of line. |
+
+#### Delete
+
+#### Save
+
+#### Image
+
+## Develop
 
 First, install packages using [yarn](https://yarnpkg.com/) (we assume you have pre-installed [npm](https://www.npmjs.com/) and [node.js](https://nodejs.org/)).
 
 ```
 yarn install
 ```
-
-## Usage
 
 You can see `scripts` in `package.json`.
 - `production`: `production` mode.
@@ -40,4 +103,4 @@ All sharing UI components(like `footer` and `header`).
 Some componets need to use `radium` to transform(like `Link` in `react-router`).
 
 ## License
- © hsuting
+MIT © hsuting

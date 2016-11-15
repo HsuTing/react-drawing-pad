@@ -40,6 +40,8 @@ export default class Font extends React.Component {
     };
 
     this.changeSize = this.changeSize.bind(this);
+    this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidUpdate() {
@@ -59,16 +61,30 @@ export default class Font extends React.Component {
       <div {...props}
            style={[itemStyle, fontStyle.root, style]}
       >
-        <Remove style={convertStyle([fontStyle.icon, iconStyle])} />
+        <Remove style={convertStyle([fontStyle.icon, iconStyle])}
+                onClick={this.remove}
+        />
         <input value={size}
                style={[fontStyle.input(style), inputStyle]}
                onChange={this.changeSize}
                onBlur={this.changeSize}
                maxLength={2}
         />
-        <Add style={convertStyle([fontStyle.icon, iconStyle])} />
+        <Add style={convertStyle([fontStyle.icon, iconStyle])}
+             onClick={this.add}
+        />
       </div>
     );
+  }
+
+  add() {
+    const size = this.state.size + 1 > 99 ? 99 : this.state.size + 1;
+    this.setState({size});
+  }
+
+  remove() {
+    const size = this.state.size - 1 < 1 ? 1 : this.state.size - 1;
+    this.setState({size});
   }
 
   changeSize(e) {
